@@ -16,7 +16,7 @@ Antes de empezar, asegúrate de tener instalado lo siguiente:
 
 1. **Clona este repositorio**:
     ```bash
-    git clone https://github.com/tu-usuario/tu-repo.git
+    git@github.com:guillermo20052009/JuegoPython.git
     cd tu-repo
     ```
 
@@ -42,7 +42,7 @@ Antes de empezar, asegúrate de tener instalado lo siguiente:
 
 1. **Clona este repositorio**:
     ```powershell
-    git clone https://github.com/tu-usuario/tu-repo.git
+    git@github.com:guillermo20052009/JuegoPython.git
     cd tu-repo
     ```
 
@@ -74,7 +74,6 @@ Antes de empezar, asegúrate de tener instalado lo siguiente:
 ## Notas adicionales
 
 - Si encuentras problemas relacionados con **Pygame**, consulta la [documentación oficial de Pygame](https://www.pygame.org/docs/).
-- Para personalizar el proyecto, modifica los archivos en el directorio `assets/` y ajusta el código según sea necesario.
 
 ---
 
