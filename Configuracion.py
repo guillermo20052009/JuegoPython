@@ -10,3 +10,4 @@ class Configuracion:
         self.bullet_height = 15
         self.bullet_color = (60, 60, 60)
         self.bullet_allow = 5
+        self.alien_speed = 1.0

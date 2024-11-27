@@ -3,6 +3,7 @@ import pygame
 from Configuracion import Configuracion
 from Ship import Nave
 from Bullet import Bullet
+from Alien import Alien
 
 """Clase que controla el funcionamiento del juego"""
 class AlienInvasion:
@@ -17,6 +18,9 @@ class AlienInvasion:
         pygame.display.set_caption('Alien Invasion')
         self.nave = Nave(self)
         self.bullets=pygame.sprite.Group()
+        self.aliens=pygame.sprite.Group()
+
+        self.crear_flota()
 
     """Inicia el juego principal"""
     def run_game(self):
@@ -25,6 +29,7 @@ class AlienInvasion:
             self.nave.update()
             self.bullets.update()
             self.borrar_balas()
+            self.update_aliens()
             self.update_screen()
 
     """Escucha eventos del teclado"""
@@ -44,6 +49,7 @@ class AlienInvasion:
         self.nave.colocar()
         for bullet in self.bullets:
             bullet.draw_bullet()
+        self.aliens.draw(self.screen)
         pygame.display.flip()
 
 
@@ -92,6 +98,29 @@ class AlienInvasion:
         for bullet in self.bullets.copy():
             if bullet.rect.y <=0:
                 self.bullets.remove(bullet)
+
+    def crear_flota(self):
+        alien = Alien(self)
+        alien_width,alien_heigth = alien.rect.size
+        disponible = self.configuracion.screen_width - (2*alien_width)
+        numero_aliens = disponible // (2*alien_width)
+        number_rows=3
+
+        for row in range(number_rows):
+            for i in range(numero_aliens):
+                self.crear_aliens(i,row)
+
+    def crear_aliens(self,i,row):
+        alien = Alien(self)
+        alien_width = alien.rect.width
+        alien.x = alien_width + 2 * alien_width * i
+        alien.rect.y = alien.rect.height + 2 * alien.rect.height * row
+        alien.rect.x = alien.x
+        self.aliens.add(alien)
+
+    def update_aliens(self):
+        self.aliens.update()
+
 
 if __name__ == '__main__':
     juego = AlienInvasion()
