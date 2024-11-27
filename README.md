@@ -1,4 +1,4 @@
-# Proyecto Pygame
+# Proyecto Alien Invasion
 
 Este es un proyecto desarrollado en **Pygame**, una biblioteca para la creación de videojuegos en Python. Este README explica cómo configurar y ejecutar el proyecto en sistemas Linux y Windows.
 
