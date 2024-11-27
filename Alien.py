@@ -16,5 +16,10 @@ class Alien(Sprite):
 
     """Mueve el alien"""
     def update (self):
-        self.x+=self.configuracion.alien_speed
+        self.x+=(self.configuracion.alien_speed * self.configuracion.direccion)
         self.rect.x=self.x
+
+    def bordes (self):
+        screen_rect = self.screen.get_rect()
+        if self.rect.right >= screen_rect.right or self.rect.left <= 0:
+            return True

@@ -99,6 +99,7 @@ class AlienInvasion:
             if bullet.rect.y <=0:
                 self.bullets.remove(bullet)
 
+    """Creamos todos los aliens"""
     def crear_flota(self):
         alien = Alien(self)
         alien_width,alien_heigth = alien.rect.size
@@ -110,6 +111,7 @@ class AlienInvasion:
             for i in range(numero_aliens):
                 self.crear_aliens(i,row)
 
+    """Crea un alien y le asigna su sitio"""
     def crear_aliens(self,i,row):
         alien = Alien(self)
         alien_width = alien.rect.width
@@ -118,8 +120,19 @@ class AlienInvasion:
         alien.rect.x = alien.x
         self.aliens.add(alien)
 
+    """Actualiza los aliens"""
     def update_aliens(self):
+        self.chocar_bordes()
         self.aliens.update()
+
+    def chocar_bordes (self):
+        for alien in self.aliens.sprites():
+            if alien.bordes():
+                self.direccion()
+                break
+
+    def direccion(self):
+        self.configuracion.direccion*=-1
 
 
 if __name__ == '__main__':
