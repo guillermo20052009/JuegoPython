@@ -57,22 +57,22 @@ class AlienInvasion:
     """Maneja el movimiento a la derecha"""
     def mov_derecha(self,event):
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_d:
+            if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                 self.nave.moving_right = True
 
         elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_d:
+            if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                  self.nave.moving_right = False
 
 
     """Maneja el movimiento a la izquierda"""
     def mov_izquierda(self, event):
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_a:
+            if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                 self.nave.moving_left = True
 
         elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_a:
+            if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                 self.nave.moving_left = False
 
     """Terminar Juego"""
@@ -132,6 +132,8 @@ class AlienInvasion:
                 break
 
     def direccion(self):
+        for alien in self.aliens.sprites():
+            alien.rect.y+=self.configuracion.drop_speed
         self.configuracion.direccion*=-1
 
 
