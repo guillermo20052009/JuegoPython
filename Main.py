@@ -4,6 +4,8 @@ from Configuracion import Configuracion
 from Ship import Nave
 from Bullet import Bullet
 from Alien import Alien
+from time import sleep
+from estadisticas import Estadisticas
 
 """Clase que controla el funcionamiento del juego"""
 class AlienInvasion:
@@ -19,6 +21,7 @@ class AlienInvasion:
         self.nave = Nave(self)
         self.bullets=pygame.sprite.Group()
         self.aliens=pygame.sprite.Group()
+        self.estadisticas=Estadisticas(self)
 
         self.crear_flota()
 
@@ -26,10 +29,11 @@ class AlienInvasion:
     def run_game(self):
         while True:
             self.check_events()
-            self.nave.update()
-            self.bullets.update()
-            self.borrar_balas()
-            self.update_aliens()
+            if self.estadisticas.activo:
+                self.nave.update()
+                self.update_bullets()
+                self.borrar_balas()
+                self.update_aliens()
             self.update_screen()
 
     """Escucha eventos del teclado"""
@@ -124,17 +128,55 @@ class AlienInvasion:
     def update_aliens(self):
         self.chocar_bordes()
         self.aliens.update()
+        if pygame.sprite.spritecollideany(self.nave, self.aliens):
+            self.colisiones_nave_alien()
+        self.colisiones_suelo_alien()
 
+
+    """Comprueba si cohca con los bordes"""
     def chocar_bordes (self):
         for alien in self.aliens.sprites():
             if alien.bordes():
                 self.direccion()
                 break
 
+    """Cambia de direccion y los baja"""
     def direccion(self):
         for alien in self.aliens.sprites():
             alien.rect.y+=self.configuracion.drop_speed
         self.configuracion.direccion*=-1
+
+    """Actualizar balas y administrar colisiones y nuevas flotas"""
+    def update_bullets(self):
+        self.bullets.update()
+        self.colisiones_bala_alien()
+
+    """Funcion para crear nuevas flotas y administrar colisiones de disparos"""
+    def colisiones_bala_alien(self):
+        colision = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        if not self.aliens:
+            self.bullets.empty()
+            self.crear_flota()
+
+    """Maneja las colisiones de nave y alien"""
+    def colisiones_nave_alien(self):
+        if self.estadisticas.ships_left > 0:
+            self.estadisticas.ships_left-=1
+            self.aliens.empty()
+            self.bullets.empty()
+            self.crear_flota()
+            self.nave.colocar_centro()
+            sleep(2)
+        else:
+            self.estadisticas.activo = False
+
+    """Maneja las colisiones de los aliens con el final de la pantalla"""
+    def colisiones_suelo_alien(self):
+        screen_rect=self.screen.get_rect()
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= screen_rect.bottom:
+                self.colisiones_nave_alien()
+                break
 
 
 if __name__ == '__main__':

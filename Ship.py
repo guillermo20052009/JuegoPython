@@ -26,3 +26,7 @@ class Nave:
             self.x -= self.configuracion.velocidad_nave
 
         self.rect.x = self.x
+
+    def colocar_centro(self):
+        self.rect.midbottom=self.screen_rect.midbottom
+        self.x = float(self.rect.x)
