@@ -16,7 +16,7 @@ Antes de empezar, asegúrate de tener instalado lo siguiente:
 
 1. **Clona este repositorio**:
     ```bash
-    git@github.com:guillermo20052009/JuegoPython.git
+    git clone git@github.com:guillermo20052009/JuegoPython.git
     cd tu-repo
     ```
 
@@ -28,7 +28,7 @@ Antes de empezar, asegúrate de tener instalado lo siguiente:
 
 3. **Instala las dependencias**:
     ```bash
-    pip install -r pygame
+    pip install pygame
     ```
 
 4. **Ejecuta el proyecto**:
